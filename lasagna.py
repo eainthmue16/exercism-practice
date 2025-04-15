@@ -1,73 +1,55 @@
-"""Functions used in preparing Guido's gorgeous lasagna.
+"""Preparing Guido's gorgeous lasagna.
 
-Learn about Guido, the creator of the Python language:
-https://en.wikipedia.org/wiki/Guido_van_Rossum
-
-This is a module docstring, used to describe the functionality
-of a module and its functions and/or classes.
+This program calculates the total time needed to prepare lasagna.
+It takes into account the preparation time and the baking time.
 """
 
+EXPECTED_BAKE_TIME = 40  # in minutes
+PREPARATION_TIME = 2     # per layer, in minutes
 
-#TODO: define the 'EXPECTED_BAKE_TIME' constant below.
-EXPECTED_BAKE_TIME = 40
-PREPARATION_BAKE_TIME = 2
-
-print("Welcome to Our Guido's Lasagna Preparation!!")
-baking = input("Do you want to start? ")
-
-if baking != "yes":
-    quit()
-print("Let's bake!")
-
-
-#TODO: Remove 'pass' and complete the 'bake_time_remaining()' function below.
 def bake_time_remaining(elapsed_bake_time):
-    """Calculate the bake time remaining.
-
-    :param elapsed_bake_time: int - baking time already elapsed.
-    :return: int - remaining bake time (in minutes) derived from 'EXPECTED_BAKE_TIME'.
-
-    Function that takes the actual minutes the lasagna has been in the oven as
-    an argument and returns how many minutes the lasagna still needs to bake
-    based on the `EXPECTED_BAKE_TIME`.
-    """
-    
-    bakeTimeR = EXPECTED_BAKE_TIME - elapsed_bake_time
-    return bakeTimeR 
-
-
-#TODO: Define the 'preparation_time_in_minutes()' function below.
-# You might also consider defining a 'PREPARATION_TIME' constant.
-# You can do that on the line below the 'EXPECTED_BAKE_TIME' constant.
-# This will make it easier to do calculations.
+    """Return the remaining bake time."""
+    return EXPECTED_BAKE_TIME - elapsed_bake_time
 
 def preparation_time_in_minutes(number_of_layers):
-    preparationT = PREPARATION_BAKE_TIME * number_of_layers
-    return preparationT
+    """Return total preparation time based on number of layers."""
+    return PREPARATION_TIME * number_of_layers
 
-#TODO: define the 'elapsed_time_in_minutes()' function below.
+def elapsed_time_in_minutes(number_of_layers, elapsed_bake_time):
+    """Return total elapsed time: preparation + baking so far."""
+    return preparation_time_in_minutes(number_of_layers) + elapsed_bake_time
 
-def elasped_time_in_minutes(number_of_layers, elapsed_bake_time):
-    total_elapsed_time = preparation_time_in_minutes(number_of_layers) + elapsed_bake_time
-    return total_elapsed_time
-    
+def main():
+    print("👋 Welcome to Our Guido's Lasagna Preparation!!")
+    start = input("Do you want to start? (yes/no) ").strip().lower()
 
+    if start != "yes":
+        print("Alright, come back when you're hungry! 🍽️")
+        return
 
-# TODO: Remember to go back and add docstrings to all your functions
-#  (you can copy and then alter the one from bake_time_remaining.)
+    print("Let's bake! 🍝🔥")
 
+    try:
+        number_of_layers = int(input("How many layers do you want to prepare? "))
+        print(f"You have {number_of_layers} layers.")
+        
+        preparation_time = preparation_time_in_minutes(number_of_layers)
+        print(f"Your preparation time would be {preparation_time} minutes.")
 
-number_of_layers = int(input("How many layers do you want to prepare? "))
-print(f"You have {number_of_layers} layers.")
-preparationT = preparation_time_in_minutes(number_of_layers)
-print(f"Your preparation time would be {preparationT} minutes.")
+        elapsed_bake_time = int(input("How long has the lasagna been in the oven so far? "))
+        print(f"Your elapsed bake time is {elapsed_bake_time} minutes.")
 
-elapsed_bake_time =int(input("How long has Lasagna been in the oven so far? "))
-print(f"Your elapsed bake time is {elapsed_bake_time} minutes.")
-bakeTimeR = bake_time_remaining(elapsed_bake_time)
-print(f"Your expected bake time is {EXPECTED_BAKE_TIME} minutes.")
-print(f"Your remaining bake time is {bakeTimeR} minutes.")
+        remaining_bake_time = bake_time_remaining(elapsed_bake_time)
+        print(f"Expected total bake time is {EXPECTED_BAKE_TIME} minutes.")
+        print(f"Your remaining bake time is {remaining_bake_time} minutes.")
 
-total_elasped_time = elasped_time_in_minutes(number_of_layers, elapsed_bake_time)
-print(f"Your total elapsed time is {total_elasped_time} minutes. Enjoy!")
+        total_time = elapsed_time_in_minutes(number_of_layers, elapsed_bake_time)
+        print(f"Your total elapsed time is {total_time} minutes. Enjoy your lasagna! 😋")
+
+    except ValueError:
+        print("⚠️ Please enter valid numbers only. Restart the program and try again.")
+        return
+
+if __name__ == "__main__":
+    main()
 
