@@ -47,7 +47,7 @@ def main():
         print(f"Your total elapsed time is {total_time} minutes. Enjoy your lasagna! 😋")
 
     except ValueError:
-        print("⚠️ Please enter valid numbers only. Restart the program and try again.")
+        print("⚠️ Please enter valid numbers only. Restart the program and try again!")
         return
 
 if __name__ == "__main__":
